@@ -4,12 +4,13 @@ import com.codahale.metrics.annotation.Timed;
 import io.github.jhipster.domain.Car;
 import io.github.jhipster.repository.CarRepository;
 import io.github.jhipster.repository.search.CarSearchRepository;
-import io.github.jhipster.web.rest.util.PaginationUtil;
+import io.github.jhipster.config.pagination.PaginationUtil;
 import io.github.jhipster.web.rest.dto.CarDTO;
 import io.github.jhipster.web.rest.mapper.CarMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -91,11 +92,9 @@ public class CarResource {
             produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     @Transactional(readOnly = true)
-    public ResponseEntity<List<CarDTO>> getAll(@RequestParam(value = "page" , required = false) Integer offset,
-                                  @RequestParam(value = "per_page", required = false) Integer limit)
-        throws URISyntaxException {
-        Page<Car> page = carRepository.findAll(PaginationUtil.generatePageRequest(offset, limit));
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/cars", offset, limit);
+    public ResponseEntity<List<CarDTO>> getAll(Pageable pageable) throws URISyntaxException {
+        Page<Car> page = carRepository.findAll(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/cars");
         return new ResponseEntity<>(page.getContent().stream()
             .map(carMapper::carToCarDTO)
             .collect(Collectors.toCollection(LinkedList::new)), headers, HttpStatus.OK);
