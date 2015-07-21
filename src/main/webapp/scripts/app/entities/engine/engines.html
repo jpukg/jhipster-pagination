@@ -1,12 +1,12 @@
 <div>
 
-    <h2>Cars</h2>
+    <h2>Engines</h2>
 
     <div class="container">
         <div class="row">
             <div class="col-md-4">
-                <button class="btn btn-primary" ui-sref="car.new">
-                    <span class="glyphicon glyphicon-flash"></span> <span>Create a new Car</span>
+                <button class="btn btn-primary" ui-sref="engine.new">
+                    <span class="glyphicon glyphicon-flash"></span> <span>Create a new Engine</span>
                 </button>
             </div>
             <div class="col-md-8">
@@ -14,24 +14,24 @@
                     <div class="form-group">
                         <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="query">
                     </div>
-                    <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span> <span>Search a Car</span>
+                    <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span> <span>Search a Engine</span>
                     </button>
                 </form>
             </div>
         </div>
     </div>
 
-    <div class="modal fade" id="deleteCarConfirmation">
+    <div class="modal fade" id="deleteEngineConfirmation">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form name="deleteForm" ng-submit="confirmDelete(car.id)">
+                <form name="deleteForm" ng-submit="confirmDelete(engine.id)">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
                                 ng-click="clear()">&times;</button>
                         <h4 class="modal-title">Confirm delete operation</h4>
                     </div>
                     <div class="modal-body">
-                        <p>Are you sure you want to delete this Car?</p>
+                        <p>Are you sure you want to delete this Engine?</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
@@ -51,29 +51,29 @@
             <thead>
                 <tr>
                     <th>ID</th>
+                    <th>Capacity</th>
                     <th>Name</th>
-                    <th>FuelType</th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="car in cars">
-                    <td><a ui-sref="car.detail({id:car.id})">{{car.id}}</a></td>
-                    <td>{{car.name}}</td>
-                    <td>{{car.fuelType}}</td>
+                <tr ng-repeat="engine in engines">
+                    <td><a ui-sref="engine.detail({id:engine.id})">{{engine.id}}</a></td>
+                    <td>{{engine.capacity}}</td>
+                    <td>{{engine.name}}</td>
                     <td>
                         <button type="submit"
-                                ui-sref="car.detail({id:car.id})"
+                                ui-sref="engine.detail({id:engine.id})"
                                 class="btn btn-info btn-sm">
                             <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span> View</span>
                         </button>
                         <button type="submit"
-                                ui-sref="car.edit({id:car.id})"
+                                ui-sref="engine.edit({id:engine.id})"
                                 class="btn btn-primary btn-sm">
                             <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span> Edit</span>
                         </button>
                         <button type="submit"
-                                ng-click="delete(car.id)"
+                                ng-click="delete(engine.id)"
                                 class="btn btn-danger btn-sm">
                             <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span> Delete</span>
                         </button>
@@ -82,16 +82,11 @@
             </tbody>
         </table>
         <nav>
-            <ul class="pagination">
-                <li ng-show="links['first'] >= 0" ng-click="loadPage(links['first'])"><a>&lt;&lt;</a></li>
-                <li ng-show="page > 0" ng-click="loadPage(links['prev'] || 0)"><a>&lt;</a></li>
-                <li ng-show="page > 1" ng-click="loadPage(page - 2)"><a>{{page - 1}}</a></li>
-                <li ng-show="page > 0" ng-click="loadPage(page - 1)"><a>{{page}}</a></li>
-                <li class="active"><a>{{page + 1}}</a></li>
-                <li ng-show="page < links['last']" ng-click="loadPage(page + 1)"><a>{{page + 2}}</a></li>
-                <li ng-show="page < links['last'] - 1" ng-click="loadPage(page + 2)"><a>{{page + 3}}</a></li>
-                <li ng-show="links['next']" ng-click="loadPage(links['next'])"><a>&gt;</a></li>
-                <li ng-show="links['last'] > 0" ng-click="loadPage(links['last'])"><a>&gt;&gt;</a></li>
+            <ul class="pager">
+                <li ng-show="links['first'] >= 0" ng-click="loadPage(links['first'])"><a href="#">&lt;&lt;</a></li>
+                <li ng-show="page > 0" ng-click="loadPage(links['prev'] || 0)"><a href="#">&lt;</a></li>
+                <li ng-show="links['next']" ng-click="loadPage(links['next'])"><a href="#">&gt;</a></li>
+                <li ng-show="links['last'] > 0" ng-click="loadPage(links['last'])"><a href="#">&gt;&gt;</a></li>
             </ul>
         </nav>
     </div>

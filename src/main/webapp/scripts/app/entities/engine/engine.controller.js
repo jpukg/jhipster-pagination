@@ -1,13 +1,14 @@
 'use strict';
 
 angular.module('jhipsterApp')
-    .controller('CarController', function ($scope, Car, CarSearch, ParseLinks) {
-        $scope.cars = [];
+    .controller('EngineController', function ($scope, Engine, EngineSearch, ParseLinks) {
+        $scope.engines = [];
         $scope.page = 0;
+
         $scope.loadAll = function() {
-            Car.query({page: $scope.page, per_page: 5}, function(result, headers) {
+            Engine.query({page: $scope.page, per_page: 5}, function(result, headers) {
                 $scope.links = ParseLinks.parse(headers('link'));
-                $scope.cars = result;
+                $scope.engines = result;
             });
         };
         $scope.loadPage = function(page) {
@@ -17,24 +18,24 @@ angular.module('jhipsterApp')
         $scope.loadAll();
 
         $scope.delete = function (id) {
-            Car.get({id: id}, function(result) {
-                $scope.car = result;
-                $('#deleteCarConfirmation').modal('show');
+            Engine.get({id: id}, function(result) {
+                $scope.engine = result;
+                $('#deleteEngineConfirmation').modal('show');
             });
         };
 
         $scope.confirmDelete = function (id) {
-            Car.delete({id: id},
+            Engine.delete({id: id},
                 function () {
                     $scope.loadAll();
-                    $('#deleteCarConfirmation').modal('hide');
+                    $('#deleteEngineConfirmation').modal('hide');
                     $scope.clear();
                 });
         };
 
         $scope.search = function () {
-            CarSearch.query({query: $scope.searchQuery}, function(result) {
-                $scope.cars = result;
+            EngineSearch.query({query: $scope.searchQuery}, function(result) {
+                $scope.engines = result;
             }, function(response) {
                 if(response.status === 404) {
                     $scope.loadAll();
@@ -48,6 +49,6 @@ angular.module('jhipsterApp')
         };
 
         $scope.clear = function () {
-            $scope.car = {name: null, fuelType: null, id: null};
+            $scope.engine = {capacity: null, name: null, id: null};
         };
     });

@@ -1,0 +1,39 @@
+
+<div>
+    <h2><span>Engine</span> {{engine.id}}</h2>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Field</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <span>Capacity</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{engine.capacity}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span>Name</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{engine.name}}" readonly>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <button type="submit"
+            ui-sref="engine"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+</div>
